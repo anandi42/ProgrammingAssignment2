@@ -55,5 +55,20 @@ cacheSolve <- function(x, ...) {
 
 #The first run, solve() is run, but the second time, data is pulled from cache. With a small matrix
 #I didn't even notice a difference, but maybe for larger matrices...
-#I made a second helper function to see the actual time saved myself
+#I made a second helper function to see the actual time saved myself:
+
+testmatrixsolve <- function(testmat){
+  mat1 <- makeCacheMatrix(testmat)
+  time1 <- system.time(cacheSolve(mat1))
+  time2 <- system.time(cacheSolve(mat1))
+  ans <- rbind(time1, time2)
+  return(ans)
+}
+
+#Example output:
+# set.seed(42)
+# x <- matrix(runif(1000000), nrow=1000, ncol=1000)
+# user.self sys.self elapsed user.child sys.child
+#time1      2.11        0    2.11         NA        NA
+#time2      0.00        0    0.01         NA        NA
 
